@@ -6,7 +6,7 @@ var svg = d3.select("svg"),
 var parseDate = d3.timeParse("%Y %b %d");
 
 var x = d3.scaleTime().range([0, width]),
-    y = d3.scaleLinear().range([height, 0]),
+    y = d3.scaleLinear().range([height, 0]).domain([0, 1300]),
     z = d3.scaleOrdinal(d3.schemeCategory10);
 
 var stack = d3.stack();
@@ -53,7 +53,7 @@ d3.csv("./storms.csv").then(function(data) {
 
   g.append("g")
       .attr("class", "axis axis--y")
-      .call(d3.axisLeft(y).ticks(10, "%"));
+      .call(d3.axisLeft(y).ticks(10));
 });
 
 function conv(x){
@@ -79,8 +79,8 @@ function easySet(d){
         let total = out[year]["-1"] + out[year]["0"] + out[year]["1"] + out[year]["2"] + out[year]['3'] + out[year]['4'] + out[year]['5']
         const opts = ["-1", "0", "1", "2", "3", "4", "5"]
         for(let i of opts){
-            // out[year][i] = out[year][i]
-            out[year][i] = out[year][i]/total
+            out[year][i] = out[year][i]
+            // out[year][i] = out[year][i]/total
         }
         out[year]["total"] = total
         out[year]["year"] = year+1975
