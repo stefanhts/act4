@@ -22,10 +22,6 @@ var g = svg.append("g")
 d3.csv("./storms.csv").then(function(data) {
   data = easySet(data) 
   var keys = Object.keys(data[0]);
-//   console.log(data[0].category)
-//   console.log(easySet(data))
-  console.log(data)
-  console.log(area)
 
   x.domain(d3.extent(data, function(d) { return d.year; }));
   z.domain(keys);
@@ -53,15 +49,18 @@ d3.csv("./storms.csv").then(function(data) {
   g.append("g")
       .attr("class", "axis axis--x")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(d3.scaleLinear().range([1975, 2020])));
+      .call(d3.axisBottom(x).tickFormat(function(d){return d* 1}));
 
   g.append("g")
       .attr("class", "axis axis--y")
       .call(d3.axisLeft(y).ticks(10, "%"));
 });
 
+function conv(x){
+    return x * 1000
+}
+
 function type(d, i, columns) {
-  d.date = parseDate(d.date);
   for (var i = 1, n = columns.length; i < n; ++i) d[columns[i]] = d[columns[i]] / 100;
   return d;
 }
@@ -80,6 +79,7 @@ function easySet(d){
         let total = out[year]["-1"] + out[year]["0"] + out[year]["1"] + out[year]["2"] + out[year]['3'] + out[year]['4'] + out[year]['5']
         const opts = ["-1", "0", "1", "2", "3", "4", "5"]
         for(let i of opts){
+            // out[year][i] = out[year][i]
             out[year][i] = out[year][i]/total
         }
         out[year]["total"] = total
