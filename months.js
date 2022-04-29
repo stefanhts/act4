@@ -20,6 +20,21 @@ var area = d3.area()
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+svg.append('text')
+.attr('class', 'title')
+.attr('transform', 'translate('+[410, 15]+')')
+.text('Storm Category Frequency By Month');
+
+svg.append('text')
+.attr('class', 'xaxis')
+.attr('transform', 'translate('+[470, 500]+')')
+.text('Month');
+
+svg.append('text')
+.attr('class', 'yaxis')
+.attr('transform', 'translate('+[0, 225]+')')
+.text('Count');
+
 d3.csv("./storms.csv").then(function(data) {
   data = easySet(data) 
   console.log(data)
@@ -47,6 +62,8 @@ d3.csv("./storms.csv").then(function(data) {
       .style("font", "10px sans-serif")
       .style("text-anchor", "end")
       .text(function(d) { return d.key; });
+    
+    
 
   g.append("g")
       .attr("class", "axis axis--x")

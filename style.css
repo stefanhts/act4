@@ -1,0 +1,83 @@
+#cat-1 {
+    position: fixed;
+    top:150px;
+    right:250px;
+}
+
+#cat0 {
+    position: fixed;
+    top:280px;
+    right:248px;
+}
+
+#cat1 {
+    position: fixed;
+    top:300px;
+    right:248px;
+}
+
+#cat2 {
+    position: fixed;
+    top:318px;
+    right:248px;
+}
+
+#cat3 {
+    position: fixed;
+    top:330px;
+    right:248px;
+}
+
+#cat4 {
+    position: fixed;
+    top:355px;
+    right:248px;
+}
+
+#cat5 {
+    position: fixed;
+    top:390px;
+    right:248px;
+}
+
+#year-1 {
+    position: fixed;
+    top:150px;
+    left:450px;
+}
+
+#year0 {
+    position: fixed;
+    top:265px;
+    left:450px;
+}
+
+#year1 {
+    position: fixed;
+    top:295px;
+    left:450px;
+}
+
+#year2 {
+    position: fixed;
+    top:316px;
+    left:457px;
+}
+
+#year3 {
+    position: fixed;
+    top:326px;
+    left:455px;
+}
+
+#year4 {
+    position: fixed;
+    top:346px;
+    left:425px;
+}
+
+#year5 {
+    position: fixed;
+    top:440px;
+    left:445px;
+}

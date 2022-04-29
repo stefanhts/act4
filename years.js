@@ -19,6 +19,22 @@ var area = d3.area()
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
+svg.append('text')
+.attr('class', 'title')
+.attr('transform', 'translate('+[410, 15]+')')
+.text('Storm Category Over Time');
+
+svg.append('text')
+.attr('class', 'xaxis')
+.attr('transform', 'translate('+[470, 500]+')')
+.text('Year');
+
+svg.append('text')
+.attr('class', 'yaxis')
+.attr('transform', 'translate('+[5, 215]+')')
+.text('Count');
+
+
 d3.csv("./storms.csv").then(function(data) {
   data = easySet(data) 
   var keys = Object.keys(data[0]);
