@@ -12,18 +12,19 @@ var x = d3.scaleTime().range([0, width]),
 var stack = d3.stack();
 
 var area = d3.area()
-    .x(function(d, i) { return x(d.data.date); })
-    .y0(function(d) { return y(d[0]); })
+    .x(function(d, i) { return x(d.date); })
+    .y0(function(d) { return y(d); })
     .y1(function(d) { return y(d[1]); });
 
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("./storms.csv", function(data) {
-  console.log("test")
+d3.csv("./storms.csv").then(function(data) {
   var keys = Object.keys(data[0]);
+  console.log(data[0].category)
+  console.log(easySet(data))
 
-  x.domain(d3.extent(data, function(d) { return d.date; }));
+  x.domain(d3.extent(data, function(d) { return d.year; }));
   z.domain(keys);
   stack.keys(keys);
 
@@ -60,4 +61,26 @@ function type(d, i, columns) {
   d.date = parseDate(d.date);
   for (var i = 1, n = columns.length; i < n; ++i) d[columns[i]] = d[columns[i]] / 100;
   return d;
+}
+
+function easySet(d){
+    let out = []
+    for (let i = 1975; i <= 2020; i++){
+       out.push({"-1":0, "0": 0, "1":0, "2":0, "3":0, "4":0, "5":0})
+       for(let j of d){
+            if(+j.year === i){
+               out[i-1975][j.category]++ 
+            }
+       } 
+    }
+    for(let year = 0; year < out.length; year++) {
+        let total = out[year]["-1"] + out[year]["0"] + out[year]["1"] + out[year]["2"] + out[year]['3'] + out[year]['4'] + out[year]['5']
+        const opts = ["-1", "0", "1", "2", "3", "4", "5"]
+        for(let i of opts){
+            out[year][i] = out[year][i]/total
+        }
+        out[year]["total"] = total
+        
+    }
+    return out
 }
