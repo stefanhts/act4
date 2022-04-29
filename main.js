@@ -12,17 +12,20 @@ var x = d3.scaleTime().range([0, width]),
 var stack = d3.stack();
 
 var area = d3.area()
-    .x(function(d, i) { return x(d.date); })
-    .y0(function(d) { return y(d); })
+    .x(function(d, i) { return x(d.data.year); })
+    .y0(function(d) { return y(d[0]); })
     .y1(function(d) { return y(d[1]); });
 
 var g = svg.append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 d3.csv("./storms.csv").then(function(data) {
+  data = easySet(data) 
   var keys = Object.keys(data[0]);
-  console.log(data[0].category)
-  console.log(easySet(data))
+//   console.log(data[0].category)
+//   console.log(easySet(data))
+  console.log(data)
+  console.log(area)
 
   x.domain(d3.extent(data, function(d) { return d.year; }));
   z.domain(keys);
@@ -50,7 +53,7 @@ d3.csv("./storms.csv").then(function(data) {
   g.append("g")
       .attr("class", "axis axis--x")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x));
+      .call(d3.axisBottom(d3.scaleLinear().range([1975, 2020])));
 
   g.append("g")
       .attr("class", "axis axis--y")
@@ -80,6 +83,7 @@ function easySet(d){
             out[year][i] = out[year][i]/total
         }
         out[year]["total"] = total
+        out[year]["year"] = year+1975
         
     }
     return out
